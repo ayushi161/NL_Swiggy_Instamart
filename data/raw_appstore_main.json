@@ -439,5 +439,140 @@
     "timestamp": "2026-07-16T06:51:59-07:00",
     "scrubbed_text": "",
     "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_10",
+    "source_channel": "PlayStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543210 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_11",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543211 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_12",
+    "source_channel": "PlayStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543212 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_13",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543213 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_14",
+    "source_channel": "PlayStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543214 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_15",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543215 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_16",
+    "source_channel": "PlayStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543216 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_17",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543217 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_18",
+    "source_channel": "PlayStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543218 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_pii_19",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Delivery driver called from phone number +91 9876543219 and was rude. Order tracking ID 98234123489.",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_noise_5",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Good experience fast service ok app",
+    "rating": 5,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_noise_6",
+    "source_channel": "PlayStore_Main",
+    "raw_text": "Good experience fast service ok app",
+    "rating": 5,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_noise_7",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Good experience fast service ok app",
+    "rating": 5,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_noise_8",
+    "source_channel": "PlayStore_Main",
+    "raw_text": "Good experience fast service ok app",
+    "rating": 5,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_noise_9",
+    "source_channel": "AppStore_Main",
+    "raw_text": "Good experience fast service ok app",
+    "rating": 5,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
   }
 ]

@@ -376,7 +376,7 @@
   {
     "review_id": "8cab8e9518d981b00fab76265fed303182797ebbe2d3b7406a65287584700508",
     "source_channel": "Reddit",
-    "raw_text": "\u092c\u0939\u0941\u0924 \u0905\u091a\u094d\u091b\u093e \u0910\u092a \u0939\u0948 \ud83d\ude00\ud83d\ude01\ud83d\ude02\ud83e\udd23\ud83d\ude03\ud83d\ude04\ud83d\ude05\ud83d\ude06",
+    "raw_text": "बहुत अच्छा ऐप है 😀😁😂🤣😃😄😅😆",
     "rating": 4,
     "timestamp": "2026-07-17T02:06:43.962615Z",
     "scrubbed_text": "",
@@ -385,7 +385,7 @@
   {
     "review_id": "14517473fd4b189b741b268e6eb3c86060880cbe01db336cbe2cbd64d1846044",
     "source_channel": "Forum",
-    "raw_text": "\u092c\u0939\u0941\u0924 \u0905\u091a\u094d\u091b\u093e \u0910\u092a \u0939\u0948 \ud83d\ude00\ud83d\ude01\ud83d\ude02\ud83e\udd23\ud83d\ude03\ud83d\ude04\ud83d\ude05\ud83d\ude06",
+    "raw_text": "बहुत अच्छा ऐप है 😀😁😂🤣😃😄😅😆",
     "rating": 4,
     "timestamp": "2026-05-07T17:02:21.436485Z",
     "scrubbed_text": "",
@@ -394,7 +394,7 @@
   {
     "review_id": "9534dd708f820240bd5936195e46dc2df0eb906afbf230719e95cf5bbed2cf77",
     "source_channel": "Reddit",
-    "raw_text": "\u092c\u0939\u0941\u0924 \u0905\u091a\u094d\u091b\u093e \u0910\u092a \u0939\u0948 \ud83d\ude00\ud83d\ude01\ud83d\ude02\ud83e\udd23\ud83d\ude03\ud83d\ude04\ud83d\ude05\ud83d\ude06",
+    "raw_text": "बहुत अच्छा ऐप है 😀😁😂🤣😃😄😅😆",
     "rating": 4,
     "timestamp": "2026-04-24T15:33:53.188086Z",
     "scrubbed_text": "",
@@ -403,7 +403,7 @@
   {
     "review_id": "d7ec16f251decddc56eec2410b788ed784267a359ce7464ae6d61796cc79eda2",
     "source_channel": "Reddit",
-    "raw_text": "\u092c\u0939\u0941\u0924 \u0905\u091a\u094d\u091b\u093e \u0910\u092a \u0939\u0948 \ud83d\ude00\ud83d\ude01\ud83d\ude02\ud83e\udd23\ud83d\ude03\ud83d\ude04\ud83d\ude05\ud83d\ude06",
+    "raw_text": "बहुत अच्छा ऐप है 😀😁😂🤣😃😄😅😆",
     "rating": 4,
     "timestamp": "2026-06-24T22:59:35.379063Z",
     "scrubbed_text": "",
@@ -412,7 +412,7 @@
   {
     "review_id": "8e733308e4f1ac99a28c28d85e1a0438dfd59b548ba61905b979fc4b3c493d1f",
     "source_channel": "Reddit",
-    "raw_text": "\u092c\u0939\u0941\u0924 \u0905\u091a\u094d\u091b\u093e \u0910\u092a \u0939\u0948 \ud83d\ude00\ud83d\ude01\ud83d\ude02\ud83e\udd23\ud83d\ude03\ud83d\ude04\ud83d\ude05\ud83d\ude06",
+    "raw_text": "बहुत अच्छा ऐप है 😀😁😂🤣😃😄😅😆",
     "rating": 4,
     "timestamp": "2026-07-18T02:57:13.388003Z",
     "scrubbed_text": "",
@@ -2584,6 +2584,51 @@
     "raw_text": "I couldn't apply the discount code during checkout, very frustrating experience. vj6wf",
     "rating": 4,
     "timestamp": "2026-05-16T08:12:09.061512Z",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_non_ascii_0",
+    "source_channel": "Reddit",
+    "raw_text": "Instamart is giving completely spoiled products worst service!! 😡🤬🤮 structural failure!!",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_non_ascii_1",
+    "source_channel": "Reddit",
+    "raw_text": "Instamart is giving completely spoiled products worst service!! 😡🤬🤮 structural failure!!",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_non_ascii_2",
+    "source_channel": "Reddit",
+    "raw_text": "Instamart is giving completely spoiled products worst service!! 😡🤬🤮 structural failure!!",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_non_ascii_3",
+    "source_channel": "Reddit",
+    "raw_text": "Instamart is giving completely spoiled products worst service!! 😡🤬🤮 structural failure!!",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_non_ascii_4",
+    "source_channel": "Reddit",
+    "raw_text": "Instamart is giving completely spoiled products worst service!! 😡🤬🤮 structural failure!!",
+    "rating": 1,
+    "timestamp": "2026-07-19T20:10:11.608936",
     "scrubbed_text": "",
     "assigned_cluster": -1
   }

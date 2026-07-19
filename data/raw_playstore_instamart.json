@@ -4498,5 +4498,77 @@
     "timestamp": "2026-07-16T17:19:13",
     "scrubbed_text": "",
     "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_0",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_1",
+    "source_channel": "AppStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_2",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_3",
+    "source_channel": "AppStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_4",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_5",
+    "source_channel": "AppStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_6",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_7",
+    "source_channel": "AppStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
   }
 ]

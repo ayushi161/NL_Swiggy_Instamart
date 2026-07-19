@@ -439,5 +439,68 @@
     "timestamp": "2026-07-12T03:46:03-07:00",
     "scrubbed_text": "",
     "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_8",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_9",
+    "source_channel": "AppStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_10",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_11",
+    "source_channel": "AppStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_12",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_13",
+    "source_channel": "AppStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
+  },
+  {
+    "review_id": "test_short_anchor_14",
+    "source_channel": "PlayStore_Instamart",
+    "raw_text": "Received expired milk today return it",
+    "rating": 2,
+    "timestamp": "2026-07-19T20:10:11.608936",
+    "scrubbed_text": "",
+    "assigned_cluster": -1
   }
 ]
