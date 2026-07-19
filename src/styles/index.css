@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Color tokens */
+  --color-bg-primary:    #0f1117;
+  --color-bg-surface:    #1a1d27;
+  --color-bg-card:       #222639;
+  --color-accent:        #6c63ff;
+  --color-accent-hover:  #857dff;
+  --color-text-primary:  #e8eaf0;
+  --color-text-secondary:#9ca3af;
+  --color-success:       #34d399;
+  --color-warning:       #fbbf24;
+  --color-danger:        #f87171;
+
+  /* Typography tokens */
+  --font-family:         'Inter', sans-serif;
+  --font-size-metric:    28px;
+  --font-size-heading:   22px;
+  --font-size-body:      15px;
+  --font-size-caption:   13px;
+
+  /* Spacing tokens */
+  --spacing-xs:  4px;
+  --spacing-sm:  8px;
+  --spacing-md:  16px;
+  --spacing-lg:  24px;
+  --spacing-xl:  40px;
+
+  /* Elevation tokens */
+  --shadow-card:  0 4px 24px rgba(0,0,0,0.25);
+  --radius-card:  12px;
+  --radius-btn:   8px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.placeholder {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-secondary);
+}
