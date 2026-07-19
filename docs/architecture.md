@@ -220,12 +220,39 @@ Implemented as regex-based token replacement applied to `raw_text` to produce `s
 - **Output:** Each clean review receives an `assigned_cluster` integer index.
 - **Theme Labels & Summaries:** A secondary LLM call generates a human-readable theme name and behavioral summary for each discovered cluster.
 
-#### Token Optimization Strategy
+#### Token Optimization Strategy — Map-Reduce Framework
 
-To minimize external LLM token consumption and prevent API rate limit window exhaustion during high-volume evaluations, the clustering architecture runs a **split-execution workflow**:
+To maximize analytical coverage across **100% of the data** while minimizing external LLM token consumption, the clustering architecture runs a **Map-Reduce execution framework**:
 
-- **Pass 1 — Taxonomy Discovery (LLM-side):** The engine passes a micro-seed batch of **20 random reviews** to the LLM to identify and define the top **4 structural cross-category friction categories** (e.g., Search Autopilot Lock-In, Perceived Quality Risk Aversion). This single bounded call establishes the semantic taxonomy at minimal token cost.
-- **Pass 2 — Client-Side Vector Engine (in-browser):** Once categories are returned, the engine handles the remaining high-volume records **natively in browser memory** using a phrase-proximity keyword matrix match indexer. Explicit term mappings drive assignment:
+- **Stage 1 — MAP (Client-Side, In-Browser):** The JavaScript engine scans the **full text pool** (all 800+ clean, scrubbed reviews) to count the density frequencies of core behavioral friction phrases and cross-category anchor words. It compresses these findings into a single, high-density **JSON frequency matrix** summarizing the volume distribution of text patterns across all source channels. No raw review text leaves the browser during this stage.
+
+  The Map output is a structured object:
+  ```json
+  {
+    "total_reviews": 847,
+    "source_distribution": { "PlayStore": 340, "AppStore": 210, "Reddit": 170, "Forum": 127 },
+    "rating_distribution": { "1": 95, "2": 180, "3": 210, "4": 220, "5": 142 },
+    "phrase_frequencies": {
+      "expired": { "count": 42, "avg_rating": 1.6, "sources": ["PlayStore", "Reddit"] },
+      "search bar": { "count": 78, "avg_rating": 2.3, "sources": ["PlayStore", "AppStore"] },
+      "beauty": { "count": 31, "avg_rating": 2.1, "sources": ["Reddit", "Forum"] },
+      "fake": { "count": 27, "avg_rating": 1.4, "sources": ["PlayStore"] }
+    },
+    "co_occurrence_pairs": [
+      { "terms": ["expired", "seal"], "count": 18 },
+      { "terms": ["search", "type"], "count": 55 }
+    ]
+  }
+  ```
+
+- **Stage 2 — REDUCE (LLM-side, Single API Call):** The engine passes **only the compressed frequency matrix** (not raw review text) to the external LLM endpoint in a single taxonomy discovery call. The LLM acts as the Reduce layer: it synthesizes the data trends of all 800+ reviews at once from the matrix footprint to output the definitive **4 cross-category growth friction themes**, complete with behavioral summaries and structural keyword anchor arrays.
+
+  This approach achieves:
+  - **100% data coverage:** Every review's signal is represented in the frequency matrix.
+  - **Minimal token cost:** The matrix payload is ~500–800 tokens regardless of whether the corpus is 800 or 5,000 reviews.
+  - **Zero raw text exposure:** No `scrubbed_text` strings are sent to the LLM during clustering — only aggregate statistical patterns.
+
+- **Post-Reduce Classification (In-Browser):** Once the LLM returns the 4 taxonomy themes with `keyword_anchors`, the engine classifies each review in browser memory using a phrase-proximity keyword match indexer. Explicit term mappings drive assignment:
   - Terms like `type`, `search bar`, `filter`, `find` → **Search UX** cluster.
   - Terms like `expired`, `fake`, `beauty`, `cosmetic`, `seal` → **Risk Aversion** cluster.
   - This eliminates redundant token loops completely, with zero additional LLM API calls for bulk classification.
@@ -499,10 +526,21 @@ NL_Swiggy_Instamart/
               |  raw_text -> scrubbed_text   |
               +--------------+---------------+
                              v
+              +------------------------------+
+              |  STAGE 1: MAP (In-Browser)   |
+              |  Scan 100% of reviews        |
+              |  Build frequency matrix      |
+              +--------------+---------------+
+                             v
               +------------------------------+        +-----------------+
-              |  LLM API CALL #1             +------->+  External LLM   |
-              |  Semantic Clustering         +<-------+  (API Response) |
+              |  STAGE 2: REDUCE (LLM Call)  +------->+  External LLM   |
+              |  Matrix -> 4 Taxonomy Themes +<-------+  (API Response) |
               +--------------+---------------+        +-----------------+
+                             v
+              +------------------------------+
+              |  CLASSIFY (In-Browser)       |
+              |  Keyword match -> clusters   |
+              +--------------+---------------+
                              | assigned_cluster per review
                              v
               +------------------------------+        +-----------------+
