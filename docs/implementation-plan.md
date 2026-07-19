@@ -27,7 +27,7 @@
 
 ### Core Objective
 
-Establish the complete ES6 project scaffold, prepare the static baseline dataset (`compiled_insights.json` with 800+ multi-source review records), and lay out all documentation templates. Upon completion of this phase, a developer can open `src/index.html` in a browser and see a valid (empty-state) application shell with zero runtime errors.
+Establish the complete ES6 project scaffold, prepare the decoupled baseline datasets (`raw_playstore.json`, `raw_appstore.json`, `raw_reddit.json` with 800+ multi-source review records combined), and lay out all documentation templates. Upon completion of this phase, a developer can open `src/index.html` in a browser and see a valid (empty-state) application shell with zero runtime errors.
 
 ---
 
@@ -46,7 +46,9 @@ NL_Swiggy_Instamart/
 |   +-- implementation-plan.md          # [NEW] This document
 |
 +-- data/
-|   +-- compiled_insights.json          # [NEW] 800+ baseline records
+|   +-- raw_playstore.json              # [NEW] PlayStore baseline records
+|   +-- raw_appstore.json               # [NEW] AppStore baseline records
+|   +-- raw_reddit.json                 # [NEW] Reddit baseline records
 |
 +-- src/
 |   +-- index.html                      # [NEW] App shell
@@ -90,9 +92,9 @@ NL_Swiggy_Instamart/
 
 ---
 
-#### 0.2 — Baseline Dataset Preparation (`data/compiled_insights.json`)
+#### 0.2 — Baseline Dataset Preparation (`data/raw_playstore.json`, `data/raw_appstore.json`, `data/raw_reddit.json`)
 
-Construct the static embedded dataset conforming to the canonical schema from [`architecture.md` §3](./architecture.md#3-data-schema):
+Construct the static embedded datasets conforming to the canonical schema from [`architecture.md` §3](./architecture.md#3-data-schema). These three files combined should contain the 800+ records:
 
 | Field              | Generation Rule                                                                         |
 |--------------------|-----------------------------------------------------------------------------------------|
@@ -112,7 +114,7 @@ Construct the static embedded dataset conforming to the canonical schema from [`
 - At least 15 short records (< 8 words) that contain friction anchors (to exercise the bypass gate).
 - At least 10 short records (< 8 words) that do NOT contain anchors (to validate they are correctly discarded).
 - At least 5 records with heavy emoji density or non-ASCII scripts (to validate the language filter).
-- Include the peripheral fields (`userName`, `userImage`, `reviewCreatedVersion`, `replyContent`, `repliedAt`) on at least 50 records so the payload sanitization filter can be tested.
+- Include the peripheral fields (`userName`, `userImage`, `reviewCreatedVersion`, `replyContent`, `repliedAt`) on at least 50 records across the files so the payload sanitization filter can be tested.
 
 ---
 
@@ -203,7 +205,7 @@ States: IDLE → INGESTING → NORMALIZING → PII_SCRUB → CLUSTERING → RANK
 |-----|----------------------------------------------------------------------------------------|---------------------------|
 | EC-0.1 | Open `src/index.html` in Chrome/Edge                                               | Page renders with zero console errors |
 | EC-0.2 | All JS stubs load via ES6 module imports                                           | No `import` failures in console |
-| EC-0.3 | `data/compiled_insights.json` is valid JSON                                        | `JSON.parse()` succeeds; `array.length >= 800` |
+| EC-0.3 | Baseline data files are valid JSON (`data/raw_playstore.json`, etc.)               | `JSON.parse()` succeeds; combined array length >= 800 |
 | EC-0.4 | Each record in the baseline contains all 7 schema fields                           | Programmatic schema check returns zero violations |
 | EC-0.5 | CSS custom properties resolve correctly                                            | `getComputedStyle()` returns expected token values |
 | EC-0.6 | `app.js` pipeline state machine can be invoked from console                        | Calling `runPipeline()` transitions through states and reaches `IDLE` (stubs return immediately) |
@@ -225,10 +227,11 @@ Build the complete data ingestion layer (baseline loader + drag-and-drop file up
 
 | Task                              | Detail                                                                     |
 |-----------------------------------|----------------------------------------------------------------------------|
-| Fetch the static JSON             | Use `fetch('./data/compiled_insights.json')` (relative path from `index.html` serving root). |
-| Parse and validate                | `JSON.parse()` the response. Validate that the array length >= 20 and <= 5,000. |
-| Volume cap enforcement            | If `records.length > 5000`, slice to the first 5,000 and log a warning.    |
-| Minimum floor pre-check           | If `records.length < 20`, return an error object and transition pipeline to `ERROR_STATE`. |
+| Fetch the static JSONs            | Use a parallel `Promise.all()` to fetch `./data/raw_playstore.json`, `./data/raw_appstore.json`, and `./data/raw_reddit.json`. |
+| Parse and validate                | `JSON.parse()` the responses. Dynamically normalize fields to the unified schema. |
+| Deduplicate and merge             | Deduplicate records across the three files by their string index keys (`review_id`), and merge them into a single clean in-memory pool. |
+| Volume cap enforcement            | If merged `records.length > 5000`, slice to the first 5,000 and log a warning. |
+| Minimum floor pre-check           | If merged `records.length < 20`, return an error object and transition pipeline to `ERROR_STATE`. |
 | Return canonical array            | Return the validated array to the orchestrator.                            |
 
 ---
@@ -350,7 +353,7 @@ export function scrub(reviews) {
 
 | #   | Validation Check                                                                             | Pass Condition             |
 |-----|----------------------------------------------------------------------------------------------|----------------------------|
-| EC-1.1 | App loads and `compiled_insights.json` baseline populates the internal data array         | `reviews.length >= 800`    |
+| EC-1.1 | App loads and decoupled baseline files populate the internal data array         | `reviews.length >= 800`    |
 | EC-1.2 | Drag-and-drop zone accepts a `.csv` file and appends records to the baseline array       | New records visible in internal state |
 | EC-1.3 | Drag-and-drop zone accepts a `.json` file                                                | Same as above              |
 | EC-1.4 | Non-CSV/JSON file upload is rejected with a visible toast                                | `.pdf` upload shows error  |

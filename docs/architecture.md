@@ -67,8 +67,8 @@ The system is **100% browser-executable** (no dedicated backend server required)
 |    |  INGESTION     | | NORMALIZATION| |   REASONING ENGINE     |      |
 |    |  LAYER         | |  LAYER       | |  (LLM API Calls)       |      |
 |    |                | |              | |  * PII Scrubbing       |      |
-|    | * compiled_    | | * Length     | |  * Semantic Clustering |      |
-|    |   insights.json| |   floor      | |  * Theme Summarization |      |
+|    | * raw baselines| | * Length     | |  * Semantic Clustering |      |
+|    |   (3 files)    | |   floor      | |  * Theme Summarization |      |
 |    | * Drag-&-Drop  | | * Lang check | |  * Quote Generation    |      |
 |    |   CSV / JSON   | | * Payload    | |                        |      |
 |    |                | |   sanitize   | |                        |      |
@@ -120,12 +120,12 @@ Every review record (regardless of ingest source) is normalized into the followi
 
 **Responsibility:** Load review data into the runtime pipeline from two sources.
 
-#### Source A — Pre-Compiled Baseline (`compiled_insights.json`)
+#### Source A — Pre-Compiled Baselines (Decoupled)
 
-- Bundled with the application as a static asset.
-- Contains **800+ granular review records** spanning Play Store, App Store, Reddit threads, and community forums.
-- Loaded automatically on application startup — no network call or API friction for the reviewer.
-- Guarantees a fully-populated, production-scale dataset is available instantly.
+- Bundled with the application as three distinct static assets: `raw_playstore.json`, `raw_appstore.json`, `raw_reddit.json`.
+- Contains **800+ granular review records** spanning the respective channels.
+- Loaded automatically on application startup via a parallel multi-fetch (`Promise.all()`) operation.
+- The ingestion service dynamically normalizes their internal fields, deduplicates them by `review_id`, and merges them into a clean in-memory pool.
 
 #### Source B — Dynamic Batch File Ingest (Drag-and-Drop)
 
@@ -452,7 +452,9 @@ NL_Swiggy_Instamart/
 |   +-- architecture.md             # This document
 |
 +-- data/
-|   +-- compiled_insights.json      # 800+ pre-compiled review records (baseline)
+|   +-- raw_playstore.json          # Raw PlayStore review baseline
+|   +-- raw_appstore.json           # Raw AppStore review baseline
+|   +-- raw_reddit.json             # Raw Reddit review baseline
 |
 +-- src/
 |   +-- index.html                  # Application entry point & shell
@@ -506,13 +508,14 @@ NL_Swiggy_Instamart/
 ## 8. Data Flow Diagram
 
 ```
-[compiled_insights.json]   [User Upload: .csv / .json]
-           |                          |
-           +----------+---------------+
-                      v
-              +---------------+
-              |  INGESTION    |  Enforce: min 20, max 5,000
-              +------+--------+
+[raw_playstore.json] [raw_appstore.json] [raw_reddit.json]   [User Upload: .csv / .json]
+         |                    |                  |                        |
+         +--------------------+------------------+------------------------+
+                              v
+                      +---------------+
+                      |  INGESTION    |  (Promise.all multi-fetch, deduplicate, merge)
+                      |  Enforce: min 20, max 5,000
+                      +------+--------+
                      v
               +-------------------------------+
               |  NORMALIZATION (3 Filters)    |
