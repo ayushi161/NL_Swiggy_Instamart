@@ -96,8 +96,19 @@ The system is **100% browser-executable** (no dedicated backend server required)
 
 ---
 
-## 3. Data Schema
+## 3. Data Schema & Manifest
 
+### 3.1 Target Application Tracking Nodes
+The system formally tracks reviews from both the flagship Swiggy application and the dedicated Instamart standalone app to ensure cross-pollination of Quick-Commerce insights:
+- **Flagship Swiggy App:** PlayStore (`in.swiggy.android`) / AppStore (`989540920`)
+- **Standalone Instamart App:** PlayStore (`in.swiggy.android.instamart`) / AppStore (`6738619733`)
+
+### 3.2 Incoming Data Streams
+The incoming Android data files are explicitly split into two distinct paths to separate core app feedback from dedicated Instamart feedback:
+- `data/raw_playstore_main.json`
+- `data/raw_playstore_instamart.json`
+
+### 3.3 Canonical Record Structure
 Every review record (regardless of ingest source) is normalized into the following canonical structure throughout the entire runtime lifecycle:
 
 | Field              | Type    | Description                                                                              |
@@ -122,7 +133,7 @@ Every review record (regardless of ingest source) is normalized into the followi
 
 #### Source A — Pre-Compiled Baselines (Decoupled)
 
-- Bundled with the application as three distinct static assets: `raw_playstore.json`, `raw_appstore.json`, `raw_reddit.json`.
+- Bundled with the application as four distinct static assets: `raw_playstore_main.json`, `raw_playstore_instamart.json`, `raw_appstore.json`, `raw_reddit.json`.
 - Contains **800+ granular review records** spanning the respective channels.
 - Loaded automatically on application startup via a parallel multi-fetch (`Promise.all()`) operation.
 - The ingestion service dynamically normalizes their internal fields, deduplicates them by `review_id`, and merges them into a clean in-memory pool.

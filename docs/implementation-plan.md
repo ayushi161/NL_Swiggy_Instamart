@@ -27,7 +27,7 @@
 
 ### Core Objective
 
-Establish the complete ES6 project scaffold, prepare the decoupled baseline datasets (`raw_playstore.json`, `raw_appstore.json`, `raw_reddit.json` with 800+ multi-source review records combined), and lay out all documentation templates. Upon completion of this phase, a developer can open `src/index.html` in a browser and see a valid (empty-state) application shell with zero runtime errors.
+Establish the complete ES6 project scaffold, prepare the decoupled baseline datasets (`raw_playstore_main.json`, `raw_playstore_instamart.json`, `raw_appstore.json`, `raw_reddit.json` with 800+ multi-source review records combined), and lay out all documentation templates. Upon completion of this phase, a developer can open `src/index.html` in a browser and see a valid (empty-state) application shell with zero runtime errors.
 
 ---
 
@@ -46,7 +46,8 @@ NL_Swiggy_Instamart/
 |   +-- implementation-plan.md          # [NEW] This document
 |
 +-- data/
-|   +-- raw_playstore.json              # [NEW] PlayStore baseline records
+|   +-- raw_playstore_main.json         # [NEW] PlayStore flagship baseline
+|   +-- raw_playstore_instamart.json    # [NEW] PlayStore standalone instamart baseline
 |   +-- raw_appstore.json               # [NEW] AppStore baseline records
 |   +-- raw_reddit.json                 # [NEW] Reddit baseline records
 |
@@ -92,7 +93,7 @@ NL_Swiggy_Instamart/
 
 ---
 
-#### 0.2 — Baseline Dataset Preparation (`data/raw_playstore.json`, `data/raw_appstore.json`, `data/raw_reddit.json`)
+#### 0.2 — Baseline Dataset Preparation (`data/raw_playstore_main.json`, `data/raw_playstore_instamart.json`, `data/raw_appstore.json`, `data/raw_reddit.json`)
 
 Construct the static embedded datasets conforming to the canonical schema from [`architecture.md` §3](./architecture.md#3-data-schema). These three files combined should contain the 800+ records:
 
@@ -205,7 +206,7 @@ States: IDLE → INGESTING → NORMALIZING → PII_SCRUB → CLUSTERING → RANK
 |-----|----------------------------------------------------------------------------------------|---------------------------|
 | EC-0.1 | Open `src/index.html` in Chrome/Edge                                               | Page renders with zero console errors |
 | EC-0.2 | All JS stubs load via ES6 module imports                                           | No `import` failures in console |
-| EC-0.3 | Baseline data files are valid JSON (`data/raw_playstore.json`, etc.)               | `JSON.parse()` succeeds; combined array length >= 800 |
+| EC-0.3 | Baseline data files are valid JSON (`data/raw_playstore_main.json`, etc.)          | `JSON.parse()` succeeds; combined array length >= 800 |
 | EC-0.4 | Each record in the baseline contains all 7 schema fields                           | Programmatic schema check returns zero violations |
 | EC-0.5 | CSS custom properties resolve correctly                                            | `getComputedStyle()` returns expected token values |
 | EC-0.6 | `app.js` pipeline state machine can be invoked from console                        | Calling `runPipeline()` transitions through states and reaches `IDLE` (stubs return immediately) |
@@ -227,7 +228,7 @@ Build the complete data ingestion layer (baseline loader + drag-and-drop file up
 
 | Task                              | Detail                                                                     |
 |-----------------------------------|----------------------------------------------------------------------------|
-| Fetch the static JSONs            | Use a parallel `Promise.all()` to fetch `./data/raw_playstore.json`, `./data/raw_appstore.json`, and `./data/raw_reddit.json`. |
+| Fetch the static JSONs            | Use a parallel `Promise.all()` to fetch `./data/raw_playstore_main.json`, `./data/raw_playstore_instamart.json`, `./data/raw_appstore.json`, and `./data/raw_reddit.json`. |
 | Parse and validate                | `JSON.parse()` the responses. Dynamically normalize fields to the unified schema. |
 | Deduplicate and merge             | Deduplicate records across the three files by their string index keys (`review_id`), and merge them into a single clean in-memory pool. |
 | Volume cap enforcement            | If merged `records.length > 5000`, slice to the first 5,000 and log a warning. |
@@ -253,7 +254,12 @@ Build the complete data ingestion layer (baseline loader + drag-and-drop file up
 
 #### 1.3 — Normalization Pipeline (`src/pipeline/normalization.js` → `normalize()`)
 
-Implement the three sequential quality filters from [`architecture.md` §4.2](./architecture.md#42-normalization-layer):
+Implement the sequential quality filters from [`architecture.md` §4.2](./architecture.md#42-normalization-layer):
+
+##### Filter 0: Quick-Commerce Filter Gate (New)
+**Rule:** For all reviews arriving from the main flagship Swiggy application (`source_channel` matches `PlayStore_Main` or `AppStore_Main`), the system must filter text strings for target terms (`"instamart"`, `"grocery"`, `"groceries"`, `"mart"`).
+- If none are matching, **drop the entry immediately** to prevent noise skew.
+- Reviews arriving via the standalone Instamart identifiers pass through implicitly.
 
 ##### Filter 1: Length Floor (with Conditional Bypass)
 
@@ -1129,6 +1135,7 @@ Complete list of source files to be created, organized by build phase:
 | 1     | `src/pipeline/ingestion.js`           | File parsing, baseline loader, merge logic  | JS       |
 | 1     | `src/pipeline/normalization.js`       | 3 quality filters + keyword bypass gate     | JS       |
 | 1     | `src/pipeline/piiScrubber.js`         | Regex-based PII replacement node            | JS       |
+| 1     | `generate_appstore.js`                | Automated Apple AppStore RSS feed extraction utility | JS       |
 | 2a    | `src/llm/apiClient.js`               | LLM API abstraction layer                   | JS       |
 | 2a/2b | `src/pipeline/clustering.js`          | Map engine + keyword matrix classifier    | JS       |
 | 2b    | `src/pipeline/ranking.js`             | Priority score formula & theme sorter       | JS       |
